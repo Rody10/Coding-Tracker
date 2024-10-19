@@ -9,21 +9,24 @@ using System.Data.SQLite;
 
 namespace Coding_Tracker
 {
-    internal class DataController
+    public static class DataController
     {
-        string? DefaultConnectionString = ConfigurationManager.AppSettings.Get("DefaultConnectionString");
-        async void addCodingSession(String startTime, String endTime, String duration)
+        static string? DefaultConnectionString = "Data Source=" + ConfigurationManager.AppSettings.Get("DefaultConnectionString");
+        public async static void addCodingSession(CodingSession codingSession)
         {
             // TODO: Implement insertion of records using Dapper
             using (var connection = new SQLiteConnection(DefaultConnectionString))
             {
-                var sql = "INSERT INTO CodeSesion (StartTime, EndTime, Duration) VALUES (@StartTime, @EndTime, @Duration)";
+                var sql = "INSERT INTO CodeSession (StartTime, EndTime, Duration) VALUES (@startTime, @endTime, @duration)";
                 {
-                    CodingSession codingSession = new CodingSession(startTime, endTime);
                     var rowsAffected = await connection.ExecuteAsync(sql, codingSession);
                     Console.WriteLine($"{rowsAffected} row(s) inserted.");
                 }
-                var insertedCodingSessions = connection.Query<CodingSession>("SELECT * FROM CodingSession").ToList();
+                var insertedCodingSessions = connection.Query<CodingSession>("SELECT * FROM CodeSession").ToList();
+                foreach (var session in insertedCodingSessions)
+                {
+                    Console.WriteLine($"Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
+                }
             }
         }
     }

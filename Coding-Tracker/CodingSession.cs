@@ -9,17 +9,22 @@ namespace Coding_Tracker
 {
     public class CodingSession
     {
-        string startTime;
-        string endTime;
-        string duration;
+        public string startTime { get; private set; }
+        public string endTime { get; private set; }
+        public string duration { get; private set; }
 
-        // constructor
+        
         public CodingSession(string startTime, string endTime)
         {
             this.startTime = startTime;
             this.endTime = endTime;
-            duration = calculateDuration(DateTime.Parse(startTime), DateTime.Parse(endTime));  
-        }
+            duration = calculateDuration(DateTime.Parse(startTime), DateTime.Parse(endTime));
+        } // constructor
+
+        // Parameterless constructor (required by Dapper)
+        public CodingSession()
+        {
+        }// constructor
 
         private string calculateDuration(DateTime startTime, DateTime endTime)
         {

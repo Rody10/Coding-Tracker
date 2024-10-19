@@ -30,6 +30,7 @@ namespace Coding_Tracker
                 conn.Open();
 
                 await using var cmd = new SQLiteCommand($"CREATE TABLE {tableName} (StartTime TEXT, EndTime TEXT, Duration TEXT)", conn);
+                await cmd.ExecuteNonQueryAsync();
                 conn.Close();
             }
             else

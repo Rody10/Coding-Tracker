@@ -10,30 +10,31 @@ namespace CodingTracker
     {
         public static async Task Main(string[] args)
         {
-            bool terminateApp = false;
-            UserInput userInput = new UserInput();
+            bool terminateApp = false; 
 
-
-            while(!terminateApp)
+            Console.WriteLine("Welcome to the Coding Tracker!");
+            while (!terminateApp)
             {
-                Console.WriteLine("Welcome to the Coding Tracker!");
                 Console.WriteLine("-------------------");
                 await CreateDatabase.InitialiseDatabase(args);
                 Console.WriteLine("What would you like to do?");
-                Console.WriteLine("\v");
+                Console.WriteLine("");
                 Console.WriteLine("Type 1 to Insert Record.");
                 Console.WriteLine("Type 2 to View All Records.");
                 Console.WriteLine("Type 3 to Delete Record.");
                 Console.WriteLine("Type 4 to Update Record.");
                 Console.WriteLine("Type 9 to Close Application.");
 
-                int choice = userInput.GetMenuChoice();
+                int choice = UserInput.GetMenuChoice();
 
                 switch (choice)
                 {
                     case 1:
                         Console.WriteLine("Insert Record");
-                        // TODO Add logic
+                        string startTime = UserInput.GetStartTime();
+                        string endTime = UserInput.GetEndTime();
+                        CodingSession codingSession = new CodingSession(startTime, endTime);
+                        DataController.addCodingSession(codingSession);
                         break;
                     default:
                         Console.WriteLine("Invalid choice, please try again");
