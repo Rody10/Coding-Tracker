@@ -9,25 +9,41 @@ using System.Data.SQLite;
 
 namespace Coding_Tracker
 {
+    // Find out if you need to close connections
     public static class DataController
     {
         static string? DefaultConnectionString = "Data Source=" + ConfigurationManager.AppSettings.Get("DefaultConnectionString");
         public async static void addCodingSession(CodingSession codingSession)
         {
-            // TODO: Implement insertion of records using Dapper
             using (var connection = new SQLiteConnection(DefaultConnectionString))
             {
-                var sql = "INSERT INTO CodeSession (StartTime, EndTime, Duration) VALUES (@startTime, @endTime, @duration)";
+                var sql = "INSERT INTO CodeSession (CodingSessionID, StartTime, EndTime, Duration) VALUES (@codingSessionID, @startTime, @endTime, @duration)";
                 {
                     var rowsAffected = await connection.ExecuteAsync(sql, codingSession);
                     Console.WriteLine($"{rowsAffected} row(s) inserted.");
                 }
+            }
+        }
+
+        public static List<CodingSession> ReadCodingSessions()
+        {
+            using (var connection = new SQLiteConnection(DefaultConnectionString))
+            {
                 var insertedCodingSessions = connection.Query<CodingSession>("SELECT * FROM CodeSession").ToList();
-                foreach (var session in insertedCodingSessions)
+                return insertedCodingSessions;
+            }
+        }
+
+        public static void UpdateCodingSession(string startTime, string endTime)
+        {
+            using (var connection = new SQLiteConnection(DefaultConnectionString))
+            {
+                var sql = "UPDATE Product SET Name = Name + @suffix WHERE CategoryID = @categoryID";
                 {
-                    Console.WriteLine($"Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
+                    connection.Execute(sql, new { categoryID = 1, suffix = " (Updated)" });
                 }
             }
+
         }
     }
 }

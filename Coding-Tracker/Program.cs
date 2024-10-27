@@ -27,6 +27,7 @@ namespace CodingTracker
 
                 int choice = UserInput.GetMenuChoice();
 
+
                 switch (choice)
                 {
                     case 1:
@@ -36,6 +37,38 @@ namespace CodingTracker
                         CodingSession codingSession = new CodingSession(startTime, endTime);
                         DataController.addCodingSession(codingSession);
                         break;
+
+                    case 2:
+                        Console.WriteLine("View All Records");
+                        Console.WriteLine("");
+                        var allRecords = DataController.ReadCodingSessions();
+                        foreach (var session in allRecords)
+                        {
+                            Console.WriteLine($"Session ID: {session.codingSessionID}, Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
+                        }
+                        break;
+
+                    case 3: // TODO
+                        Console.WriteLine("Update Record");
+                        Console.WriteLine("");
+                        allRecords = DataController.ReadCodingSessions();
+                        List<int> validCodingSessionIDs = new List<int>();
+                        foreach (var session in allRecords)
+                        {
+                            validCodingSessionIDs.Add(session.codingSessionID);
+                        }
+                        int IDOfCodingSessionToUpdate = UserInput.GetCodingSessionID("update", validCodingSessionIDs);
+                        string updatedStartTime = UserInput.GetStartTime();
+                        string updatedEndTime = UserInput.GetEndTime();
+                        
+                        // Remember to update duration
+                        break;
+
+                    case 4:
+                        Console.WriteLine("Delete Record");
+                        Console.WriteLine("");
+                        break;
+
                     default:
                         Console.WriteLine("Invalid choice, please try again");
                         break;

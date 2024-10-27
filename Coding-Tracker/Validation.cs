@@ -13,7 +13,6 @@ namespace Coding_Tracker
         {
             while (true)
             {
-                // Console.Write("Please enter the start date and time (dd/MM/yyyy HH:mm): "); - caller will handle this
                 string? input = Console.ReadLine();
                 try
                 {
@@ -25,6 +24,25 @@ namespace Coding_Tracker
                 catch (FormatException)
                 {
                     Console.Write("{0} is not in the correct format. Correct format is dd/MM/yyyy HH:mm :", input);
+                }
+            }
+        }
+
+        public static int validateCodingSessionID(List<int> validCodingSessionIDs)
+        {
+            while (true)
+            {
+                int? input = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    if (validCodingSessionIDs.Contains((int) input))
+                    {
+                        return (int) input;
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Write("There is no Coding Session with ID {0}", input);
                 }
             }
         }

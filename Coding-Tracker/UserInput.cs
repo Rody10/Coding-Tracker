@@ -36,5 +36,11 @@ namespace Coding_Tracker
             Console.Write("Please enter the end date and time (dd/MM/yyyy HH:mm): ");
             return Validation.validateDateTime();
         }
+
+        public static int GetCodingSessionID(string operation, List<int> validCodingSessionIDs)
+        {
+            Console.Write($"Please enter the ID of the CodingSession to {operation}");
+            return Validation.validateCodingSessionID(validCodingSessionIDs);
+        }
     }
 }

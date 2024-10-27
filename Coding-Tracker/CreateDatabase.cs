@@ -29,15 +29,13 @@ namespace Coding_Tracker
 
                 conn.Open();
 
-                await using var cmd = new SQLiteCommand($"CREATE TABLE {tableName} (StartTime TEXT, EndTime TEXT, Duration TEXT)", conn);
+                await using var cmd = new SQLiteCommand($"CREATE TABLE {tableName} (CodingSessionID Number,StartTime TEXT, EndTime TEXT, Duration TEXT)", conn);
                 await cmd.ExecuteNonQueryAsync();
                 conn.Close();
             }
             else
             {
                 Console.WriteLine("Database exists.");
-                // await using var conn = new SQLiteConnection($"Data Source={DefaultConncetionString}");
-                // Console.WriteLine("");
             }
             
         }
