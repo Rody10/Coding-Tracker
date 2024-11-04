@@ -13,14 +13,14 @@ namespace Coding_Tracker
     public static class DataController
     {
         static string? DefaultConnectionString = "Data Source=" + ConfigurationManager.AppSettings.Get("DefaultConnectionString");
-        public async static void addCodingSession(CodingSession codingSession)
+        public async static void AddCodingSession(CodingSession codingSession)
         {
             using (var connection = new SQLiteConnection(DefaultConnectionString))
             {
                 var sql = "INSERT INTO CodeSession (CodingSessionID, StartTime, EndTime, Duration) VALUES (@codingSessionID, @startTime, @endTime, @duration)";
                 {
-                    var rowsAffected = await connection.ExecuteAsync(sql, codingSession);
-                    Console.WriteLine($"{rowsAffected} row(s) inserted.");
+                    int numberOfRowsInserted = await connection.ExecuteAsync(sql, codingSession);
+                    Console.WriteLine($"{numberOfRowsInserted} row(s) inserted.");
                 }
             }
         }
@@ -34,13 +34,26 @@ namespace Coding_Tracker
             }
         }
 
-        public static void UpdateCodingSession(string startTime, string endTime)
+        public static void UpdateCodingSession(string updatedStartTime, string updatedEndTime, string updatedDuration, int IDOfCodingSessionToUpdate)
         {
             using (var connection = new SQLiteConnection(DefaultConnectionString))
             {
-                var sql = "UPDATE Product SET Name = Name + @suffix WHERE CategoryID = @categoryID";
+                var sql = "UPDATE CodeSession SET StartTime = @updatedStartTime, EndTime = @updatedEndTime, Duration = @updatedDuration WHERE CodingSessionID = @IDOfCodingSessionToUpdate";
                 {
-                    connection.Execute(sql, new { categoryID = 1, suffix = " (Updated)" });
+                    int numberOfRowsUpdated = connection.Execute(sql, new {updatedStartTime, updatedEndTime, updatedDuration, IDOfCodingSessionToUpdate });
+                    Console.WriteLine($"{numberOfRowsUpdated} row(s) have been updated");
+                }
+            }
+
+        }
+        public static void DeleteCodingSession(int IDOfCodingSessionToDelete)
+        {
+            using (var connection = new SQLiteConnection(DefaultConnectionString))
+            {
+                var sql = "DELETE FROM CodeSession WHERE CodingSessionID = @IDOfCodingSessionToDelete";
+                {
+                    int numberOfRowsDeleted = connection.Execute(sql, new {IDOfCodingSessionToDelete});
+                    Console.WriteLine($"{numberOfRowsDeleted} row(s) have been deleted");
                 }
             }
 

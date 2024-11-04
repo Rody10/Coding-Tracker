@@ -9,7 +9,7 @@ namespace Coding_Tracker
 {
     public static class Validation
     {
-        public static string validateDateTime()
+        public static string ValidateDateTime()
         {
             while (true)
             {
@@ -28,7 +28,7 @@ namespace Coding_Tracker
             }
         }
 
-        public static int validateCodingSessionID(List<int> validCodingSessionIDs)
+        public static int ValidateCodingSessionID(List<int> validCodingSessionIDs)
         {
             while (true)
             {

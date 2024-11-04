@@ -27,20 +27,20 @@ namespace Coding_Tracker
         public static string GetStartTime()
         {
             Console.Write("Please enter the start date and time (dd/MM/yyyy HH:mm): ");
-            return Validation.validateDateTime();
+            return Validation.ValidateDateTime();
 
         }
 
         public static string GetEndTime()
         {
             Console.Write("Please enter the end date and time (dd/MM/yyyy HH:mm): ");
-            return Validation.validateDateTime();
+            return Validation.ValidateDateTime();
         }
 
         public static int GetCodingSessionID(string operation, List<int> validCodingSessionIDs)
         {
-            Console.Write($"Please enter the ID of the CodingSession to {operation}");
-            return Validation.validateCodingSessionID(validCodingSessionIDs);
+            Console.Write($"Please enter the ID of the CodingSession to {operation}: ");
+            return Validation.ValidateCodingSessionID(validCodingSessionIDs);
         }
     }
 }

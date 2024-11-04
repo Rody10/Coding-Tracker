@@ -23,11 +23,10 @@ namespace Coding_Tracker
         
         public CodingSession(string startTime, string endTime)
         {
-            codingSessionID = createCodingSessionID();
-            Console.WriteLine(codingSessionID);
+            codingSessionID = CreateCodingSessionID();
             this.startTime = startTime;
             this.endTime = endTime;
-            duration = calculateDuration(DateTime.Parse(startTime), DateTime.Parse(endTime));
+            duration = CalculateDuration(DateTime.Parse(startTime), DateTime.Parse(endTime));
         } // constructor
 
         // Parameterless constructor (required by Dapper)
@@ -35,7 +34,7 @@ namespace Coding_Tracker
         {
         }// constructor
 
-        private string calculateDuration(DateTime startTime, DateTime endTime)
+        private string CalculateDuration(DateTime startTime, DateTime endTime)
         {
             TimeSpan difference = endTime.Subtract(startTime);
             if (difference.TotalSeconds < 0)
@@ -44,16 +43,7 @@ namespace Coding_Tracker
             }
             return difference.ToString();
         }
-
-        // This method is used by the Update method
-        public void updateCodingSessionDuration()
-        {
-            DateTime startTimeAsDateTime = DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-            DateTime endTimeAsDateTime = DateTime.ParseExact(endTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-            calculateDuration(startTimeAsDateTime, endTimeAsDateTime);
-        }
-
-        private int createCodingSessionID()
+        private static int CreateCodingSessionID()
         // ID for each row. If table is empty, ID is 1 otherwise increament
         {
             using (var connection = new SQLiteConnection(DefaultConnectionString))

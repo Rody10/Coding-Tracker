@@ -10,19 +10,18 @@ namespace CodingTracker
     {
         public static async Task Main(string[] args)
         {
-            bool terminateApp = false; 
-
             Console.WriteLine("Welcome to the Coding Tracker!");
+            Console.WriteLine("-------------------");
+            await CreateDatabase.InitialiseDatabase(args);
+            bool terminateApp = false;           
             while (!terminateApp)
-            {
-                Console.WriteLine("-------------------");
-                await CreateDatabase.InitialiseDatabase(args);
+            {                
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("");
                 Console.WriteLine("Type 1 to Insert Record.");
                 Console.WriteLine("Type 2 to View All Records.");
-                Console.WriteLine("Type 3 to Delete Record.");
-                Console.WriteLine("Type 4 to Update Record.");
+                Console.WriteLine("Type 3 to Update Record.");
+                Console.WriteLine("Type 4 to Delete Record.");
                 Console.WriteLine("Type 9 to Close Application.");
 
                 int choice = UserInput.GetMenuChoice();
@@ -35,7 +34,7 @@ namespace CodingTracker
                         string startTime = UserInput.GetStartTime();
                         string endTime = UserInput.GetEndTime();
                         CodingSession codingSession = new CodingSession(startTime, endTime);
-                        DataController.addCodingSession(codingSession);
+                        DataController.AddCodingSession(codingSession);
                         break;
 
                     case 2:
@@ -48,25 +47,41 @@ namespace CodingTracker
                         }
                         break;
 
-                    case 3: // TODO
+                    case 3:
                         Console.WriteLine("Update Record");
                         Console.WriteLine("");
                         allRecords = DataController.ReadCodingSessions();
                         List<int> validCodingSessionIDs = new List<int>();
                         foreach (var session in allRecords)
                         {
+                            Console.WriteLine($"Session ID: {session.codingSessionID}, Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
                             validCodingSessionIDs.Add(session.codingSessionID);
                         }
+                        Console.WriteLine("");
                         int IDOfCodingSessionToUpdate = UserInput.GetCodingSessionID("update", validCodingSessionIDs);
                         string updatedStartTime = UserInput.GetStartTime();
                         string updatedEndTime = UserInput.GetEndTime();
-                        
-                        // Remember to update duration
+                        string updatedDuration = Helper.CalculateDuration(DateTime.Parse(updatedStartTime), DateTime.Parse(updatedEndTime));
+                        DataController.UpdateCodingSession(updatedStartTime, updatedEndTime, updatedDuration, IDOfCodingSessionToUpdate);
                         break;
 
                     case 4:
                         Console.WriteLine("Delete Record");
                         Console.WriteLine("");
+                        allRecords = DataController.ReadCodingSessions();
+                        validCodingSessionIDs = new List<int>();
+                        foreach (var session in allRecords)
+                        {
+                            Console.WriteLine($"Session ID: {session.codingSessionID}, Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
+                            validCodingSessionIDs.Add(session.codingSessionID);
+                        }
+                        Console.WriteLine("");
+                        int IDOfCodingSessionToDelete = UserInput.GetCodingSessionID("delete", validCodingSessionIDs);
+                        DataController.DeleteCodingSession(IDOfCodingSessionToDelete);
+                        break;
+
+                    case 9:
+                        terminateApp = true;
                         break;
 
                     default:
