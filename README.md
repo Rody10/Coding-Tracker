@@ -1,8 +1,6 @@
 # Coding-Tracker
-Console application to track coding hours. It uses a SQLite database and the Spectre.Console library.
+Console application to track coding hours. It uses a SQLite database, Dapper and the Spectre.Console library.
 
-# Habit-Logger application 
-This is a Console-based CRUD C# application that uses SQLite. 
 
 ## Requirements 
 - [ ] This application has the same requirements as the previous project, except that now you'll be logging your daily coding time.
