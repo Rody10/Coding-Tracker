@@ -15,18 +15,18 @@ namespace Coding_Tracker
     public class CodingSession
     {
         static string? DefaultConnectionString = "Data Source=" + ConfigurationManager.AppSettings.Get("DefaultConnectionString");
-        public string startTime { get; private set; }
-        public string endTime { get; private set; }
-        public string duration { get; private set; }
-        public int codingSessionID { get; private set; }
+        public string StartTime { get; private set; }
+        public string EndTime { get; private set; }
+        public string Duration { get; private set; }
+        public int CodingSessionID { get; private set; }
 
         
         public CodingSession(string startTime, string endTime)
         {
-            codingSessionID = CreateCodingSessionID();
-            this.startTime = startTime;
-            this.endTime = endTime;
-            duration = CalculateDuration(DateTime.Parse(startTime), DateTime.Parse(endTime));
+            CodingSessionID = CreateCodingSessionID();
+            this.StartTime = startTime;
+            this.EndTime = endTime;
+            Duration = CalculateDuration(DateTime.Parse(startTime), DateTime.Parse(endTime));
         } // constructor
 
         // Parameterless constructor (required by Dapper)

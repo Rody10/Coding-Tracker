@@ -16,7 +16,7 @@ namespace Coding_Tracker
                 string? input = Console.ReadLine();
                 try
                 {
-                    DateTime result = DateTime.ParseExact(input, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                    DateTime result = DateTime.ParseExact(input, "dd/MM/yyyy HH:mm", CultureInfo.CurrentCulture);
                     string resultDateTime = result.ToString();
                     Console.WriteLine("You entered {0}", resultDateTime);
                     return resultDateTime;

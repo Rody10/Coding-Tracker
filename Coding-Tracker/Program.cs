@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Collections.Specialized;
 using Coding_Tracker;
+using Spectre.Console;
 
 
 namespace CodingTracker
@@ -43,7 +44,7 @@ namespace CodingTracker
                         var allRecords = DataController.ReadCodingSessions();
                         foreach (var session in allRecords)
                         {
-                            Console.WriteLine($"Session ID: {session.codingSessionID}, Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
+                            Console.WriteLine($"Session ID: {session.CodingSessionID}, Start Time: {session.StartTime}, End Time: {session.EndTime}, Duration: {session.Duration}");
                         }
                         break;
 
@@ -54,8 +55,8 @@ namespace CodingTracker
                         List<int> validCodingSessionIDs = new List<int>();
                         foreach (var session in allRecords)
                         {
-                            Console.WriteLine($"Session ID: {session.codingSessionID}, Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
-                            validCodingSessionIDs.Add(session.codingSessionID);
+                            Console.WriteLine($"Session ID: {session.CodingSessionID}, Start Time: {session.StartTime}, End Time: {session.EndTime}, Duration: {session.Duration}");
+                            validCodingSessionIDs.Add(session.CodingSessionID);
                         }
                         Console.WriteLine("");
                         int IDOfCodingSessionToUpdate = UserInput.GetCodingSessionID("update", validCodingSessionIDs);
@@ -72,8 +73,8 @@ namespace CodingTracker
                         validCodingSessionIDs = new List<int>();
                         foreach (var session in allRecords)
                         {
-                            Console.WriteLine($"Session ID: {session.codingSessionID}, Start Time: {session.startTime}, End Time: {session.endTime}, Duration: {session.duration}");
-                            validCodingSessionIDs.Add(session.codingSessionID);
+                            Console.WriteLine($"Session ID: {session.CodingSessionID}, Start Time: {session.StartTime}, End Time: {session.EndTime}, Duration: {session.Duration}");
+                            validCodingSessionIDs.Add(session.CodingSessionID);
                         }
                         Console.WriteLine("");
                         int IDOfCodingSessionToDelete = UserInput.GetCodingSessionID("delete", validCodingSessionIDs);

@@ -17,7 +17,7 @@ namespace Coding_Tracker
         {
             using (var connection = new SQLiteConnection(DefaultConnectionString))
             {
-                var sql = "INSERT INTO CodeSession (CodingSessionID, StartTime, EndTime, Duration) VALUES (@codingSessionID, @startTime, @endTime, @duration)";
+                var sql = "INSERT INTO CodeSession (CodingSessionID, StartTime, EndTime, Duration) VALUES (@CodingSessionID, @StartTime, @EndTime, @Duration)";
                 {
                     int numberOfRowsInserted = await connection.ExecuteAsync(sql, codingSession);
                     Console.WriteLine($"{numberOfRowsInserted} row(s) inserted.");
@@ -40,7 +40,7 @@ namespace Coding_Tracker
             {
                 var sql = "UPDATE CodeSession SET StartTime = @updatedStartTime, EndTime = @updatedEndTime, Duration = @updatedDuration WHERE CodingSessionID = @IDOfCodingSessionToUpdate";
                 {
-                    int numberOfRowsUpdated = connection.Execute(sql, new {updatedStartTime, updatedEndTime, updatedDuration, IDOfCodingSessionToUpdate });
+                    int numberOfRowsUpdated = connection.Execute(sql, new {updatedStartTime, updatedEndTime, updatedDuration, IDOfCodingSessionToUpdate});
                     Console.WriteLine($"{numberOfRowsUpdated} row(s) have been updated");
                 }
             }
