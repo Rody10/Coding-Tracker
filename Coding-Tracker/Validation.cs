@@ -32,17 +32,28 @@ namespace Coding_Tracker
         {
             while (true)
             {
-                int? input = Int32.Parse(Console.ReadLine());
+                string? userInput = Console.ReadLine();
+                if (userInput == "")
+                {
+                    Console.WriteLine("You did not enter anything. Please enter the Coding Session ID");
+                    continue;
+                }
+                
                 try
                 {
-                    if (validCodingSessionIDs.Contains((int) input))
+                    int input = Int32.Parse(userInput!);
+                    if (validCodingSessionIDs.Contains(input))
                     {
-                        return (int) input;
+                        return input;
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no Coding Session with ID {0}. Please enter a valid Coding Session ID", input);
                     }
                 }
-                catch (IndexOutOfRangeException)
+                catch (FormatException)
                 {
-                    Console.Write("There is no Coding Session with ID {0}", input);
+                    Console.Write("There is no Coding Session with ID {0}", userInput);
                 }
             }
         }
